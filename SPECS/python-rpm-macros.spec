@@ -1,4 +1,4 @@
-Name:           python-rpm-macros 
+Name:           python-rpm-macros
 Version:        1
 Release:        %mkrel 2
 Summary:        The unversioned Python RPM macros
@@ -14,7 +14,7 @@ BuildArch:      noarch
 %description
 This package contains RPM macro py_byte_compile to enable specfiles
 to selectively byte-compile individual files and paths with different
-Python runtimes as necessary. 
+Python runtimes as necessary.
 
 You should not need to install this package manually as the various
 python?-devel packages require it. So install a python-devel package instead.
