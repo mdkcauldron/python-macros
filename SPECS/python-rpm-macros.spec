@@ -1,9 +1,11 @@
 Name:           python-rpm-macros
-Version:        1
-Release:        %mkrel 3
+Version:        3
+Release:        %mkrel 1
 Summary:        The unversioned Python RPM macros
 License:        MIT
 Group:          Development/Python
+Source0:        macros.python
+Source1:        macros.python-srpm
 Source2:        macros.python2
 Source3:        macros.python3
 # Mga stuff?
@@ -20,6 +22,11 @@ Python runtimes as necessary.
 You should not need to install this package manually as the various
 python?-devel packages require it. So install a python-devel package instead.
 
+%package -n python-srpm-macros
+Summary:        RPM macros for building Python source packages
+
+%description -n python-srpm-macros
+RPM macros for building Python source packages.
 
 %package -n python2-rpm-macros
 Summary:        RPM macros for building Python 2 packages
@@ -47,13 +54,18 @@ RPM macros for building Python 3 packages.
 
 %install
 mkdir -p %{buildroot}/%{_sysconfdir}/rpm/macros.d/
-install -m 644 %{SOURCE2} %{SOURCE3} %{SOURCE10} \
-  %{buildroot}/%{_sysconfdir}/rpm/macros.d/
+mkdir -p %{buildroot}/%{_rpmconfigdir}/macros.d/
+install -m 644 %{SOURCE0} %{SOURCE1} %{SOURCE2} %{SOURCE3} \
+  %{SOURCE10} \
+  %{buildroot}/%{_rpmconfigdir}/macros.d/
 
 
 %files
+%{_rpmconfigdir}/macros.d/macros.python
 %{_sysconfdir}/rpm/macros.d/pybytecompile.macros
 
+%files -n python-srpm-macros
+%{_rpmconfigdir}/macros.d/macros.python-srpm
 
 %files -n python2-rpm-macros
 %{_rpmconfigdir}/macros.d/macros.python2
