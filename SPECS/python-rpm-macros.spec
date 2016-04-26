@@ -9,7 +9,7 @@ Source1:        macros.python-srpm
 Source2:        macros.python2
 Source3:        macros.python3
 # Mga stuff?
-Source10:       pybytecompile.macros
+Source10:       macros.pybytecompile
 
 BuildArch:      noarch
 
@@ -53,7 +53,6 @@ RPM macros for building Python 3 packages.
 
 
 %install
-mkdir -p %{buildroot}/%{_sysconfdir}/rpm/macros.d/
 mkdir -p %{buildroot}/%{_rpmconfigdir}/macros.d/
 install -m 644 %{SOURCE0} %{SOURCE1} %{SOURCE2} %{SOURCE3} \
   %{SOURCE10} \
@@ -62,7 +61,7 @@ install -m 644 %{SOURCE0} %{SOURCE1} %{SOURCE2} %{SOURCE3} \
 
 %files
 %{_rpmconfigdir}/macros.d/macros.python
-%{_sysconfdir}/rpm/macros.d/pybytecompile.macros
+%{_rpmconfigdir}/macros.d/macros.pybytecompile
 
 %files -n python-srpm-macros
 %{_rpmconfigdir}/macros.d/macros.python-srpm
