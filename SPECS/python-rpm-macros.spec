@@ -5,8 +5,8 @@ Summary:        The unversioned Python RPM macros
 License:        MIT
 Group:          Development/Python
 Source0:        pybytecompile.macros
-Source1:        python2.macros
-Source2:        python3.macros
+Source2:        macros.python2
+Source3:        macros.python3
 
 BuildArch:      noarch
 
@@ -46,7 +46,7 @@ RPM macros for building Python 3 packages.
 
 %install
 mkdir -p %{buildroot}/%{_sysconfdir}/rpm/macros.d/
-install -m 644 %{SOURCE0} %{SOURCE1} %{SOURCE2} \
+install -m 644 %{SOURCE0} %{SOURCE2} %{SOURCE3} \
   %{buildroot}/%{_sysconfdir}/rpm/macros.d/
 
 
@@ -55,9 +55,8 @@ install -m 644 %{SOURCE0} %{SOURCE1} %{SOURCE2} \
 
 
 %files -n python2-rpm-macros
-%{_sysconfdir}/rpm/macros.d/python2.macros
-
+%{_rpmconfigdir}/macros.d/macros.python2
 
 %files -n python3-rpm-macros
-%{_sysconfdir}/rpm/macros.d/python3.macros
+%{_rpmconfigdir}/macros.d/macros.python3
 
