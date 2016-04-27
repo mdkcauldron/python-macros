@@ -1,6 +1,6 @@
 Name:           python-rpm-macros
 Version:        3
-Release:        %mkrel 1
+Release:        %mkrel 2
 Summary:        The unversioned Python RPM macros
 License:        MIT
 Group:          Development/Python
@@ -32,6 +32,8 @@ RPM macros for building Python source packages.
 Summary:        RPM macros for building Python 2 packages
 Group:          Development/Python
 Conflicts:      python < 2.7.11-5
+# (tv) it use macros such as %%py_setup from that sub package:
+Requires:	python-rpm-macros
 
 %description -n python2-rpm-macros
 RPM macros for building Python 2 packages.
@@ -41,6 +43,8 @@ RPM macros for building Python 2 packages.
 Summary:        RPM macros for building Python 3 packages
 Group:          Development/Python
 Conflicts:      python3 < 3.5.1-3
+# (tv) it use macros such as %%py_setup from that sub package:
+Requires:	python-rpm-macros
 
 %description -n python3-rpm-macros
 RPM macros for building Python 3 packages.
