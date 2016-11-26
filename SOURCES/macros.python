@@ -1,13 +1,30 @@
 %py_setup setup.py
 %py_shbang_opts -s
 
-%py_build() %{expand:\
-CFLAGS="%{optflags}" %{__python} %{py_setup} %{?py_setup_args} build --executable="%{__python2} %{py_shbang_opts}" %{?1}\
-}
+# (proyvind): If specified, -v argument specifies which python version,
+#             must be 2 or 3. Otherwise if not specified, use default.
+%py_setup_run(v:) %{expand:\
+%{-v:%global orig__python %{__python} \
+%global __python %{__python%{-v*}}} \
+%{lua:if rpm.expand("%{py_ver}") >= "3.0" then rpm.define("py_smp %{_smp_mflags}"); end} \
+ln -snf build.%{py_ver} build ; \
+%setup_compile_flags \
+%{__python} %{py_setup} %{?py_setup_args} %{?*} \
+%{-v:%global __python %{orig__python}} \
+%unglobal py_smp \
+%unglobal py_setup_args}
 
-%py_install() %{expand:\
-CFLAGS="%{optflags}" %{__python} %{py_setup} %{?py_setup_args} install -O1 --skip-build --root %{buildroot} %{?1}\
-}
+%py_build(v:) \
+%global py_setup_args build %%{?py_smp} --build-base=build.%%{py_ver} --executable="%%{__python} %{?py_shbang_opts}%{?!py_shbang_opts:-s}" \
+%{expand:%py_setup_run %%{?*}}
+
+%py_install(v:) \
+%global py_setup_args install --skip-build --root %{buildroot} \
+%{expand:%py_setup_run %%{?*}}
+
+%py_test(v:) \
+%global py_setup_args test \
+%{expand:%py_setup_run %%{?*}}
 
 %python_provide() %{lua:\
         function string.starts(String,Start)\
